@@ -1,2 +1,0 @@
-# poll-client
-Poll Client
