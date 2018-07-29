@@ -16,7 +16,7 @@ import { getApi, postApi } from '../utils/apiUtils';
 function* submitAnswerSaga(action) {
   const answer = action.payload;
   try {
-    const response = yield call(postApi, `${API_SERVER}${API_ANSWERS}`, null, { answer: answer });
+    const response = yield call(postApi, `${API_SERVER}${API_ANSWERS}`, null, answer );
     console.log('submit answer response: ', response);
     // dispatch a success action to the store with the new dog
     yield put({ type: API_SUBMIT_ANSWER_SUCCESS, payload: response });
