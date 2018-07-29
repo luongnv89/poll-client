@@ -6,7 +6,7 @@ import '../App.css';
 
 import { API_CALL_REQUEST, API_SUBMIT_ANSWER_REQUEST } from '../actions/types';
 import MainPage from '../components/MainPage';
-import { getUID } from '../utils';
+import { getUID, getLastURLPath } from '../utils';
 
 class QuestionPage extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class QuestionPage extends Component {
     this.onSubmitAnswer = this.onSubmitAnswer.bind(this);
   }
   componentWillMount() {
-    const questionID = 'q2';
+    const questionID = getLastURLPath(this.props.location.pathname);
     this.props.dispatch({ type: API_CALL_REQUEST, questionID });
   }
 
@@ -108,7 +108,7 @@ class QuestionPage extends Component {
         )}
       </div>
     );
-    return (this.props.redirectToAnswer ? (<Redirect to='/answers' />) : (<MainPage mainContent={mainContent} title="Questions" />));
+    return (this.props.redirectToAnswer ? (<Redirect to={`/answers/questions/${questions.id}`} />) : (<MainPage mainContent={mainContent} title="Questions" />));
   }
 }
 

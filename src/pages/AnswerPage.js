@@ -1,57 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getLastURLPath } from '../utils';
 
 import '../App.css';
 
 import { API_GET_ANSWER_REQUEST } from '../actions/types';
 import MainPage from '../components/MainPage';
 
-const Question = ({ question }) => {
-  console.log('answers: ', question.answers);
-  let listAnswers = null;
-  if (question.type === 0) {
-    listAnswers = (<div>{question.answers.map((a) => <div><input type="checkbox" value={a} name="answer" /> { a } <br /> </div>)}</div>);
-  } else {
-    listAnswers = (
-      <div>
-        <span>{question.answers.min}</span>
-        <input type="range" min={question.answers.min} max={question.answers.max} value={(question.answers.min + question.answers.max) / 2} className="slider" id="answer" />
-        <span>{question.answers.max}</span>
+class AnswerPage extends Component {
+  componentWillMount() {
+    const questionID = getLastURLPath(this.props.location.pathname);
+    this.props.dispatch({ type: API_GET_ANSWER_REQUEST, questionID });
+  }
+  render() {
+    const { answers, fetching, error } = this.props;
+    const mainContent = (
+      <div className="App">
+        {answers && (
+          <div>
+            <p style={{ marginBottom: '10px' }}> {answers.length} </p>
+          </div>
+        )}
+        {fetching && <span className="fa fa-spinner"> Fetching .... </span>}
+        {error && (
+          <p className="alert alert-danger" style={{ color: 'red', marginTop: '10px' }}>
+            {' '}
+            something went wrong!{' '}
+          </p>
+        )}
       </div>
     );
+    return (<MainPage mainContent={mainContent} title="Answers" />);
   }
-  return (
-    <div>
-      <p> {question.text} </p>
-      {listAnswers}
-    </div>
-  );
-};
-
-const AnswerPage = ({
-  fetching, questions, onRequestQuestions, error,
-}) => {
-  let listQuestions = null;
-  if (questions) {
-    console.log('questions: ', questions);
-    listQuestions = questions.map((q) => <Question key={q.id} question={q} />);
-  } else {
-    listQuestions = <span>There is no data!</span>;
-  }
-  const mainContent = (
-    <div className="App">
-      {listQuestions}
-      {fetching ? (
-        <button disabled> Fetching .... </button>
-      ) : (
-        <button onClick={onRequestQuestions}> Request list questions </button>
-      )}
-      {error && <p style={{ color: 'red' }}> something went wrong! </p>}
-    </div>
-  );
-
-  return <MainPage mainContent={mainContent} title="Answer" />;
-};
+}
 
 const mapStateToProps = (state) => ({
   answers: state.answers.answers,
@@ -59,11 +40,4 @@ const mapStateToProps = (state) => ({
   error: state.answers.error,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onRequestQuestions: () => dispatch({ type: API_GET_ANSWER_REQUEST }),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AnswerPage);
+export default connect(mapStateToProps)(AnswerPage);

@@ -17,8 +17,8 @@ class App extends React.Component {
       <HashRouter>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route path="/questions" component={QuestionPage} />
-          <Route path="/answers" component={AnswerPage} />
+          <Route path="/questions/:questionID" component={QuestionPage} />
+          <Route path="/answers/questions/:questionID" component={AnswerPage} />
         </Switch>
       </HashRouter>
     );

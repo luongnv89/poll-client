@@ -5,7 +5,7 @@ import {
   API_GET_ANSWER_SUCCESS,
 } from '../actions/types';
 
-import { API_SERVER, API_ANSWERS } from '../api';
+import { API_SERVER, API_ANSWERS, API_QUESTIONS } from '../api';
 
 import { getApi } from '../utils/apiUtils';
 
@@ -13,7 +13,7 @@ import { getApi } from '../utils/apiUtils';
 function* getAnswerSaga(action) {
   const { questionID } = action;
   try {
-    const response = yield call(getApi, `${API_SERVER}${API_ANSWERS}/${questionID}`, null);
+    const response = yield call(getApi, `${API_SERVER}${API_ANSWERS}${API_QUESTIONS}${questionID}`, null);
     console.log('get answer response: ', response);
     const answers = response;
     // dispatch a success action to the store with the new dog

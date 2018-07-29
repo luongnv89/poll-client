@@ -5,4 +5,9 @@ const getUID = () =>
     .toString(36)
     .substr(2, 9);
 
-export { getApi, postApi, getUID };
+const getLastURLPath = (url) => {
+  const array = url.split('/');
+  return array[array.length - 1];
+};
+
+export { getApi, postApi, getUID, getLastURLPath };
