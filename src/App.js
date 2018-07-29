@@ -1,21 +1,39 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Route, Switch, HashRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
+import store from './store';
+import QuestionPage from './pages/QuestionPage';
+import HomePage from './pages/HomePage';
+import AnswerPage from './pages/AnswerPage';
+import ErrorBoundary from './components/ErrorBoudary';
 
-class App extends Component {
+/* eslint react/prefer-stateless-function:0 */
+class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <HashRouter>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/questions" component={QuestionPage} />
+          <Route path="/answers" component={AnswerPage} />
+        </Switch>
+      </HashRouter>
     );
   }
+}
+
+if (document.getElementById('root')) {
+  ReactDOM.render(
+    <Provider store={store}>
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+    </Provider>,
+    document.getElementById('root'),
+  );
 }
 
 export default App;
