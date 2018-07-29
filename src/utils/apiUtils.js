@@ -62,36 +62,38 @@ function callFetch(url, options) {
 }
 
 export const getApi = (url, headers) => {
+  const aHeaders = headers || {};
   const options = {
     method: 'GET',
-    headers: headers || {},
   };
 
-  // if (aHeaders) {
-  //   options.headers = {
-  //     correlationId,
-  //     ...aHeaders,
-  //   };
-  // }
+  if (aHeaders) {
+    options.headers = {
+      // correlationId,
+      ...aHeaders,
+    };
+  }
+
   return callFetch(url, options);
 };
 
 export const postApi = (url, headers, body) => {
+  const aHeaders = headers || {};
+
   const options = {
     method: 'POST',
-    header: headers || {},
   };
 
-  // if (aHeaders) {
-  //   options.headers = {
-  //     correlationId,
-  //     'content-type': 'application/json',
-  //     ...aHeaders,
-  //   };
-  // }
+  if (aHeaders) {
+    options.headers = {
+      // correlationId,
+      'content-type': 'application/json',
+      ...aHeaders,
+    };
+  }
 
   if (body) {
-    options.body = body;
+    options.body = JSON.stringify(body);
   }
   return callFetch(url, options);
 };

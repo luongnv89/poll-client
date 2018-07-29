@@ -35,7 +35,7 @@ export function* watcherSubmitAnswerSaga() {
 function* getQuestionSaga(action) {
   const { questionID } = action;
   try {
-    const response = yield call(getApi, `${API_SERVER}${API_QUESTIONS}/${questionID}`, null);
+    const response = yield call(getApi, `${API_SERVER}${API_QUESTIONS}${questionID}/`, null);
     console.log('get question response: ', response);
     const questions = response;
     // dispatch a success action to the store with the new dog

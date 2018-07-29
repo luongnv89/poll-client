@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import '../App.css';
 
-import { API_CALL_REQUEST } from '../actions/types';
+import { API_GET_ANSWER_REQUEST } from '../actions/types';
 import MainPage from '../components/MainPage';
 
 const Question = ({ question }) => {
@@ -54,13 +54,13 @@ const AnswerPage = ({
 };
 
 const mapStateToProps = (state) => ({
-  questions: state.questions.questions,
-  fetching: state.questions.fetching,
-  error: state.questions.error,
+  answers: state.answers.answers,
+  fetching: state.answers.fetching,
+  error: state.answers.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onRequestQuestions: () => dispatch({ type: API_CALL_REQUEST }),
+  onRequestQuestions: () => dispatch({ type: API_GET_ANSWER_REQUEST }),
 });
 
 export default connect(
