@@ -7,7 +7,7 @@ const HomePage = () => {
     <div className="jumbotron">
       <h1>Welcome to PINB</h1>
       <p>Poll Is Not Bad :D</p>
-      <p><a className="btn btn-primary btn-lg" href="/#/questions" role="button">Learn more</a></p>
+      <p><a className="btn btn-primary btn-lg" href="/#/questions/q1" role="button">Learn more</a></p>
     </div>
   );
 

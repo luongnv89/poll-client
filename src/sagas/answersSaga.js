@@ -13,11 +13,11 @@ import { getApi } from '../utils/apiUtils';
 function* getAnswerSaga(action) {
   const { questionID } = action;
   try {
-    const response = yield call(getApi, `${API_SERVER}${API_ANSWERS}${API_QUESTIONS}${questionID}`, null);
-    console.log('get answer response: ', response);
+    // const response = yield call(getApi, `${API_SERVER}${API_QUESTIONS}${questionID}/${API_ANSWERS}`, null);
+    const response = yield call(getApi, `${API_SERVER}fakers/${questionID}/`, null);
     const answers = response;
     // dispatch a success action to the store with the new dog
-    yield put({ type: API_GET_ANSWER_SUCCESS, answers:[answers] });
+    yield put({ type: API_GET_ANSWER_SUCCESS, answers });
   } catch (error) {
     // dispatch a failure action to the store with the error
     yield put({ type: API_GET_ANSWER_FAILURE, error });

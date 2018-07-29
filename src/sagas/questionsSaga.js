@@ -1,8 +1,8 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import {
-  API_CALL_FAILURE,
-  API_CALL_REQUEST,
-  API_CALL_SUCCESS,
+  API_GET_QUESTION_FAILURE,
+  API_GET_QUESTION_REQUEST,
+  API_GET_QUESTION_SUCCESS,
   API_SUBMIT_ANSWER_FAILURE,
   API_SUBMIT_ANSWER_REQUEST,
   API_SUBMIT_ANSWER_SUCCESS,
@@ -39,14 +39,14 @@ function* getQuestionSaga(action) {
     console.log('get question response: ', response);
     const questions = response;
     // dispatch a success action to the store with the new dog
-    yield put({ type: API_CALL_SUCCESS, questions });
+    yield put({ type: API_GET_QUESTION_SUCCESS, questions });
   } catch (error) {
     // dispatch a failure action to the store with the error
-    yield put({ type: API_CALL_FAILURE, error });
+    yield put({ type: API_GET_QUESTION_FAILURE, error });
   }
 }
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
 export function* watcherGetQuestionSaga() {
-  yield takeLatest(API_CALL_REQUEST, getQuestionSaga);
+  yield takeLatest(API_GET_QUESTION_REQUEST, getQuestionSaga);
 }

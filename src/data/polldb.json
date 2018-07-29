@@ -1,5 +1,5 @@
 {
-  "questions": [
+  "fakers": [
     {
       "id": "q1",
       "type": 0,
@@ -10,11 +10,36 @@
         "https://zippy.gfycat.com/ShorttermWigglyGypsymoth.gif"
       ],
       "answers": [
-        "Mat Trang",
-        "Mat Troi",
-        "Chi Hang",
-        "Cai Thung"
+        {
+          "value": "Mat Trang",
+          "users": ["user1", "user2"]
+        },
+        {
+          "value": "Mat Troi",
+          "users": ["user1", "user2", "user5"]
+        },
+        {
+          "value": "Chi Hang",
+          "users": ["user2", "user3", "user4", "user5"]
+        },
+        {
+          "value": "Cai Thung",
+          "users": ["user3", "user4", "user5"]
+        }
       ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": 0,
+      "text": "C'est qua le nom de lune en Vietnamienne?",
+      "video": null,
+      "images": [
+        "https://www.skyandtelescope.com/wp-content/uploads/0505-0704_32_200x200.gif",
+        "https://zippy.gfycat.com/ShorttermWigglyGypsymoth.gif"
+      ],
+      "answers": ["Mat Trang", "Mat Troi", "Chi Hang", "Cai Thung"]
     },
     {
       "id": "q2",
@@ -22,10 +47,7 @@
       "text": "Est-ce que tu conaitre cette place?",
       "video": "https://www.youtube.com/watch?v=nvvGIz19ZTs",
       "images": [],
-      "answers": [
-        "Oui",
-        "Non"
-      ]
+      "answers": ["Oui", "Non"]
     },
     {
       "id": "q3",
@@ -57,36 +79,15 @@
       "id": "a1",
       "questionID": "q1",
       "userID": "u3",
-      "answers": [
-        "Mat Trang",
-        "Mat Troi"
-      ],
+      "answers": ["Mat Trang", "Mat Troi"],
       "timestamp": 1532645102743
     },
     {
       "id": "a2",
       "questionID": "q1",
       "userID": "u4",
-      "answers": [
-        "Mat Trang"
-      ],
+      "answers": ["Mat Trang"],
       "timestamp": 153264510000
-    },
-    {
-      "userID": "ne0y3ip61",
-      "questionID": "q2",
-      "answers": [
-        "Oui"
-      ],
-      "id": "YLZjAau"
-    },
-    {
-      "userID": "hhn9glimm",
-      "questionID": "q2",
-      "answers": [
-        "Oui"
-      ],
-      "id": "ATyzFLA"
     }
   ],
   "users": [

@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import '../App.css';
 
-import { API_CALL_REQUEST, API_SUBMIT_ANSWER_REQUEST } from '../actions/types';
+import { API_GET_QUESTION_REQUEST, API_SUBMIT_ANSWER_REQUEST } from '../actions/types';
 import MainPage from '../components/MainPage';
 import { getUID, getLastURLPath } from '../utils';
 
@@ -17,7 +17,7 @@ class QuestionPage extends Component {
   }
   componentWillMount() {
     const questionID = getLastURLPath(this.props.location.pathname);
-    this.props.dispatch({ type: API_CALL_REQUEST, questionID });
+    this.props.dispatch({ type: API_GET_QUESTION_REQUEST, questionID });
   }
 
   onSelectAnswer(answer) {

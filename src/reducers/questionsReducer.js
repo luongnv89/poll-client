@@ -1,7 +1,7 @@
 import {
-  API_CALL_FAILURE,
-  API_CALL_REQUEST,
-  API_CALL_SUCCESS,
+  API_GET_QUESTION_FAILURE,
+  API_GET_QUESTION_REQUEST,
+  API_GET_QUESTION_SUCCESS,
   API_SUBMIT_ANSWER_FAILURE,
   API_SUBMIT_ANSWER_REQUEST,
   API_SUBMIT_ANSWER_SUCCESS,
@@ -18,19 +18,19 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case API_CALL_REQUEST:
+    case API_GET_QUESTION_REQUEST:
       return {
         ...state,
         fetching: true,
         error: null,
       };
-    case API_CALL_SUCCESS:
+    case API_GET_QUESTION_SUCCESS:
       return {
         ...state,
         fetching: false,
         questions: action.questions,
       };
-    case API_CALL_FAILURE:
+    case API_GET_QUESTION_FAILURE:
       return {
         ...state,
         fetching: false,
