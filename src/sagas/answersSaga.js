@@ -13,8 +13,8 @@ import { getApi } from '../utils/apiUtils';
 function* getAnswerSaga(action) {
   const { questionID } = action;
   try {
-    // const response = yield call(getApi, `${API_SERVER}${API_QUESTIONS}${questionID}/${API_ANSWERS}`, null);
-    const response = yield call(getApi, `${API_SERVER}fakers/${questionID}/`, null);
+    const response = yield call(getApi, `${API_SERVER}${API_QUESTIONS}${questionID}/${API_ANSWERS}`, null);
+    // const response = yield call(getApi, `${API_SERVER}fakers/${questionID}/`, null);
     const answers = response;
     // dispatch a success action to the store with the new dog
     yield put({ type: API_GET_ANSWER_SUCCESS, answers });
