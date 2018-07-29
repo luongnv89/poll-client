@@ -8,13 +8,13 @@ const sagaMiddleware = createSagaMiddleware();
 
 // dev tools middleware
 /* eslint no-underscore-dangle: 0 */
-const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+//const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
 // create a redux store with our reducer above and middleware
 
 const store = createStore(
   rootReducer,
-  compose(applyMiddleware(sagaMiddleware), reduxDevTools),
+  compose(applyMiddleware(sagaMiddleware)),
 );
 
 // run the saga
