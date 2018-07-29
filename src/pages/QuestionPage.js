@@ -44,9 +44,6 @@ class QuestionPage extends Component {
   }
 
   render() {
-    if (this.state.redirectToAnswer) {
-      return (<Redirect to='/#/answers' />);
-    }
     const { questions, fetching, error } = this.props;
     let listAnswers = null;
     if (questions) {
@@ -111,7 +108,7 @@ class QuestionPage extends Component {
         )}
       </div>
     );
-    return <MainPage mainContent={mainContent} title="Questions" />;
+    return (this.props.redirectToAnswer ? (<Redirect to='/answers' />) : (<MainPage mainContent={mainContent} title="Questions" />));
   }
 }
 
