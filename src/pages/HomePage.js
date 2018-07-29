@@ -4,10 +4,10 @@ import MainPage from '../components/MainPage';
 
 const HomePage = () => {
   const mainContent = (
-    <div className="page-header">
-      <h1>
-        Welcome to PINB application
-      </h1>
+    <div className="jumbotron">
+      <h1>Welcome to PINB</h1>
+      <p>Poll Is Not Bad :D</p>
+      <p><a className="btn btn-primary btn-lg" href="/#/questions" role="button">Learn more</a></p>
     </div>
   );
 

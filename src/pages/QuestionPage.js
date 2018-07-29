@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import '../App.css';
 
@@ -15,7 +16,7 @@ class QuestionPage extends Component {
     this.onSubmitAnswer = this.onSubmitAnswer.bind(this);
   }
   componentWillMount() {
-    const questionID = 'q1';
+    const questionID = 'q2';
     this.props.dispatch({ type: API_CALL_REQUEST, questionID });
   }
 
@@ -43,6 +44,9 @@ class QuestionPage extends Component {
   }
 
   render() {
+    if (this.state.redirectToAnswer) {
+      return (<Redirect to='/#/answers' />);
+    }
     const { questions, fetching, error } = this.props;
     let listAnswers = null;
     if (questions) {
@@ -115,6 +119,7 @@ const mapStateToProps = (state) => ({
   questions: state.questions.questions,
   fetching: state.questions.fetching,
   error: state.questions.error,
+  redirectToAnswer: state.questions.redirectToAnswer,
 });
 
 export default connect(mapStateToProps)(QuestionPage);
