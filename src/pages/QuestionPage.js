@@ -6,6 +6,7 @@ import '../App.css';
 
 import { API_GET_QUESTION_REQUEST, API_SUBMIT_ANSWER_REQUEST } from '../actions/types';
 import MainPage from '../components/MainPage';
+import Question from '../components/Question';
 import { getUID, getLastURLPath } from '../utils';
 
 class QuestionPage extends Component {
@@ -45,60 +46,54 @@ class QuestionPage extends Component {
 
   render() {
     const { questions, fetching, error } = this.props;
-    let listAnswers = null;
-    if (questions) {
-      if (questions.type === 0) {
-        listAnswers = (
-          <div className="list-group">
-            {questions.answers.map((a) => (
-              /* eslint jsx-a11y/anchor-is-valid:0 */
-              <a
-                href="/#"
-                style={{ marginTop: '5px', marginBottom: '5px' }}
-                key={a}
-                className={
-                  this.state.answers.indexOf(a) > -1 ? 'list-group-item active' : 'list-group-item'
-                }
-                value={a}
-                onClick={(e) => {
-                  e.preventDefault();
-                  this.onSelectAnswer(a);
-                }}
-              >
-                {a}
-              </a>
-            ))}
-          </div>
-        );
-      } else {
-        listAnswers = (
-          <div>
-            <span>{questions.answers.min}</span>
-            <input
-              type="range"
-              min={questions.answers.min}
-              max={questions.answers.max}
-              value={(questions.answers.min + questions.answers.max) / 2}
-              className="slider"
-              id="answer"
-            />
-            <span>{questions.answers.max}</span>
-          </div>
-        );
-      }
-    }
+    // let listAnswers = null;
+    // if (questions) {
+    //   if (questions.type === 0) {
+    //     listAnswers = (
+    //       <div className="list-group">
+    //         {questions.answers.map((a) => (
+    //           /* eslint jsx-a11y/anchor-is-valid:0 */
+    //           <a
+    //             href="/#"
+    //             style={{ marginTop: '5px', marginBottom: '5px' }}
+    //             key={a}
+    //             className={
+    //               this.state.answers.indexOf(a) > -1 ? 'list-group-item active' : 'list-group-item'
+    //             }
+    //             value={a}
+    //             onClick={(e) => {
+    //               e.preventDefault();
+    //               this.onSelectAnswer(a);
+    //             }}
+    //           >
+    //             {a}
+    //           </a>
+    //         ))}
+    //       </div>
+    //     );
+    //   } else {
+    //     listAnswers = (
+    //       <div>
+    //         <span>{questions.answers.min}</span>
+    //         <input
+    //           type="range"
+    //           min={questions.answers.min}
+    //           max={questions.answers.max}
+    //           value={(questions.answers.min + questions.answers.max) / 2}
+    //           className="slider"
+    //           id="answer"
+    //         />
+    //         <span>{questions.answers.max}</span>
+    //       </div>
+    //     );
+    //   }
+    // }
 
     const mainContent = (
       <div className="App">
-        {questions && (
-          <div>
-            <p style={{ marginBottom: '10px' }}> {questions.text} </p>
-            {listAnswers}
-            <button className="btn btn-success" onClick={this.onSubmitAnswer}>
-              Submit
-            </button>
-          </div>
-        )}
+        {questions &&
+          <Question question={questions} enableSubmit={true} onSubmitAnswer={this.onSubmitAnswer} onSelectAnswer={this.onSelectAnswer} answers={this.state.answers}/>
+        }
         {fetching && <span className="fa fa-spinner"> Fetching .... </span>}
         {error && (
           <p className="alert alert-danger" style={{ color: 'red', marginTop: '10px' }}>

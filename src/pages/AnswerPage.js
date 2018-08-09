@@ -20,6 +20,7 @@ import MainPage from "../components/MainPage";
 class AnswerPage extends Component {
   componentWillMount() {
     const questionID = getLastURLPath(this.props.location.pathname);
+    console.log(questionID);
     this.props.dispatch({ type: API_GET_ANSWER_REQUEST, questionID });
   }
   render() {

@@ -1,34 +1,4 @@
 {
-  "fakers": [
-    {
-      "id": "q1",
-      "type": 0,
-      "text": "C'est qua le nom de lune en Vietnamienne?",
-      "video": null,
-      "images": [
-        "https://www.skyandtelescope.com/wp-content/uploads/0505-0704_32_200x200.gif",
-        "https://zippy.gfycat.com/ShorttermWigglyGypsymoth.gif"
-      ],
-      "answers": [
-        {
-          "value": "Mat Trang",
-          "users": ["user1", "user2"]
-        },
-        {
-          "value": "Mat Troi",
-          "users": ["user1", "user2", "user5"]
-        },
-        {
-          "value": "Chi Hang",
-          "users": ["user2", "user3", "user4", "user5"]
-        },
-        {
-          "value": "Cai Thung",
-          "users": ["user3", "user4", "user5"]
-        }
-      ]
-    }
-  ],
   "questions": [
     {
       "id": "q1",
@@ -44,8 +14,8 @@
     {
       "id": "q2",
       "type": 0,
-      "text": "Est-ce que tu conaitre cette place?",
-      "video": "https://www.youtube.com/watch?v=nvvGIz19ZTs",
+      "text": "Est-ce que vous avez voir cette film?",
+      "video": "//fr.vid.web.acsta.net/nmedia/33/17/05/18/10/19571669_hd_013.mp4",
       "images": [],
       "answers": ["Oui", "Non"]
     },
@@ -53,7 +23,7 @@
       "id": "q3",
       "type": 1,
       "text": "Combien des etoies que tu peux nous donne?",
-      "video": "https://www.youtube.com/watch?v=nvvGIz19ZTs",
+      "video": "",
       "images": [],
       "answers": {
         "min": 0,
