@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
-import '../App.css';
+import "../App.css";
 
-import { API_GET_QUESTION_REQUEST, API_SUBMIT_ANSWER_REQUEST } from '../actions/types';
-import MainPage from '../components/MainPage';
-import Question from '../components/Question';
-import { getUID, getLastURLPath } from '../utils';
+import {
+  API_GET_QUESTION_REQUEST,
+  API_SUBMIT_ANSWER_REQUEST
+} from "../actions/types";
+import MainPage from "../components/MainPage";
+import Question from "../components/Question";
+import { getUID, getLastURLPath } from "../utils";
 
 class QuestionPage extends Component {
   constructor(props) {
@@ -22,96 +25,75 @@ class QuestionPage extends Component {
   }
 
   onSelectAnswer(answer) {
-    console.log('answer, ', answer);
-    if (this.state.answers.indexOf(answer) === -1) {
-      this.setState((prevState, props) => ({
-        answers: prevState.answers.concat(answer),
-      }));
+    console.log("answer, ", answer);
+    if (this.props.questions.type === 0) {
+      // multiple option
+      if (this.state.answers.indexOf(answer) === -1) {
+        this.setState((prevState, props) => ({
+          answers: prevState.answers.concat(answer)
+        }));
+      } else {
+        this.setState((prevState, props) => ({
+          answers: prevState.answers.filter(a => a !== answer)
+        }));
+      }
     } else {
-      this.setState((prevState, props) => ({
-        answers: prevState.answers.filter((a) => a !== answer),
-      }));
+      this.setState({ answers: [answer] });
     }
   }
 
   onSubmitAnswer() {
-    console.log('Going to submit answer: ', this.state.answers);
+    console.log("Going to submit answer: ", this.state.answers);
     const answerData = {
       userID: getUID(),
       questionID: this.props.questions.id,
-      answers: this.state.answers,
+      answers: this.state.answers
     };
-    this.props.dispatch({ type: API_SUBMIT_ANSWER_REQUEST, payload: answerData });
+    this.props.dispatch({
+      type: API_SUBMIT_ANSWER_REQUEST,
+      payload: answerData
+    });
   }
 
   render() {
     const { questions, fetching, error } = this.props;
-    // let listAnswers = null;
-    // if (questions) {
-    //   if (questions.type === 0) {
-    //     listAnswers = (
-    //       <div className="list-group">
-    //         {questions.answers.map((a) => (
-    //           /* eslint jsx-a11y/anchor-is-valid:0 */
-    //           <a
-    //             href="/#"
-    //             style={{ marginTop: '5px', marginBottom: '5px' }}
-    //             key={a}
-    //             className={
-    //               this.state.answers.indexOf(a) > -1 ? 'list-group-item active' : 'list-group-item'
-    //             }
-    //             value={a}
-    //             onClick={(e) => {
-    //               e.preventDefault();
-    //               this.onSelectAnswer(a);
-    //             }}
-    //           >
-    //             {a}
-    //           </a>
-    //         ))}
-    //       </div>
-    //     );
-    //   } else {
-    //     listAnswers = (
-    //       <div>
-    //         <span>{questions.answers.min}</span>
-    //         <input
-    //           type="range"
-    //           min={questions.answers.min}
-    //           max={questions.answers.max}
-    //           value={(questions.answers.min + questions.answers.max) / 2}
-    //           className="slider"
-    //           id="answer"
-    //         />
-    //         <span>{questions.answers.max}</span>
-    //       </div>
-    //     );
-    //   }
-    // }
 
     const mainContent = (
       <div className="App">
-        {questions &&
-          <Question question={questions} enableSubmit={true} onSubmitAnswer={this.onSubmitAnswer} onSelectAnswer={this.onSelectAnswer} answers={this.state.answers}/>
-        }
+        {questions && (
+          <Question
+            question={questions}
+            enableSubmit={true}
+            onSubmitAnswer={this.onSubmitAnswer}
+            onSelectAnswer={this.onSelectAnswer}
+            answers={this.state.answers}
+          />
+        )}
         {fetching && <span className="fa fa-spinner"> Fetching .... </span>}
         {error && (
-          <p className="alert alert-danger" style={{ color: 'red', marginTop: '10px' }}>
-            {' '}
-            something went wrong!{' '}
+          <p
+            className="alert alert-danger"
+            style={{ color: "red", marginTop: "10px" }}
+          >
+            {" "}
+            something went wrong!{" "}
           </p>
         )}
       </div>
     );
-    return (this.props.redirectToAnswer ? (<Redirect to={`/answers/questions/${questions.id}`} />) : (<MainPage mainContent={mainContent} title="Questions" />));
+    return this.props.redirectToAnswer ? (
+      <Redirect to={`/answers/questions/${questions.id}`} />
+    ) : (
+      <MainPage mainContent={mainContent} title="Questions" />
+    );
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   questions: state.questions.questions,
   fetching: state.questions.fetching,
   error: state.questions.error,
-  redirectToAnswer: state.questions.redirectToAnswer,
+  redirectToAnswer: state.questions.redirectToAnswer
 });
 
 export default connect(mapStateToProps)(QuestionPage);

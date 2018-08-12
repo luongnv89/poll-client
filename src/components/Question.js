@@ -3,7 +3,32 @@ import "../styles/font-roboto.css";
 import "../styles/material-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
-import Slider from '@material-ui/core/Slide';
+
+import "rc-slider/assets/index.css";
+import "rc-tooltip/assets/bootstrap.css";
+import Tooltip from "rc-tooltip";
+import Slider from "rc-slider";
+
+const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const Range = createSliderWithTooltip(Slider.Range);
+const Handle = Slider.Handle;
+
+const handle = props => {
+  const { value, dragging, index, ...restProps } = props;
+  return (
+    <Tooltip
+      prefixCls="rc-slider-tooltip"
+      overlay={value}
+      visible={dragging}
+      placement="top"
+      key={index}
+    >
+      <Handle value={value} {...restProps} />
+    </Tooltip>
+  );
+};
+
+const wrapperStyle = { width: 400, margin: 50 };
 
 const questionImageStyle = {
   height: "100%",
@@ -49,35 +74,49 @@ const AnswersMultiOptions = ({ options, answers, onSelectAnswer }) => (
   </div>
 );
 
-const AnswersSlider = ({
-  min,
-  max,
-  step,
-  currentValue,
-  handleChangeHorizontal
-}) => (
-  <Slider
-    min={min}
-    max={max}
-    step={step}
-    value={currentValue}
-    labels={{ min: "Min", max: "Max" }}
-    onChange={handleChangeHorizontal}
-  />
-);
+const AnswersSlider = ({ min, max, step, currentValue, onSelectAnswer }) => {
+  const marks = {};
+  for (let index = min; index <= max; index += step) {
+    if (index === min || index === max) {
+      marks[index] = {label: <strong>{index}</strong>};
+    } else {
+      marks[index] = `${index}`;
+    }
+  }
+  return (
+    <div>
+      <div style={wrapperStyle}>
+        <Slider
+          dots
+          min={min}
+          max={max}
+          step={step}
+          marks={marks}
+          defaultValue={currentValue}
+          handle={handle}
+          onChange={(e)=>{
+            onSelectAnswer(e);
+          }}
+        />
+      </div>
+    </div>
+  );
+};
 
 const AnswersRange = ({ min, max, step, currentValue }) => (
   <select>
-    {Array(Math.floor((max - min) / step))
+    {Array(Math.ceil((max - min) / step) + 1)
       .fill(null)
       .map(
-        index =>
+        (value, index) =>
           currentValue === min + index * step ? (
-            <option value={min + index * step} selected>
+            <option value={min + index * step} key={index}>
               {min + index * step}
             </option>
           ) : (
-            <option value={min + index * step}>{min + index * step}</option>
+            <option value={min + index * step} key={index}>
+              {min + index * step}
+            </option>
           )
       )}
   </select>
@@ -85,7 +124,13 @@ const AnswersRange = ({ min, max, step, currentValue }) => (
 
 class Question extends Component {
   render() {
-    const { question, answers, enableSubmit, onSubmitAnswer, onSelectAnswer } = this.props;
+    const {
+      question,
+      answers,
+      enableSubmit,
+      onSubmitAnswer,
+      onSelectAnswer
+    } = this.props;
     return (
       <div>
         <div>
@@ -102,7 +147,7 @@ class Question extends Component {
           <AnswersMultiOptions
             options={question.answers}
             answers={answers}
-            onSelectAnswer = {onSelectAnswer}
+            onSelectAnswer={onSelectAnswer}
           />
         )}
         {question.type === 1 && (
@@ -111,11 +156,9 @@ class Question extends Component {
             max={question.answers.max}
             step={question.answers.step}
             currentValue={
-              answers.length === 0
-                ? question.answers.min
-                : answers[0]
+              answers.length === 0 ? question.answers.min : answers[0]
             }
-            onSelectAnswer = {onSelectAnswer}
+            onSelectAnswer={onSelectAnswer}
           />
         )}
         {question.type === 2 && (
@@ -124,11 +167,9 @@ class Question extends Component {
             max={question.answers.max}
             step={question.answers.step}
             currentValue={
-              answers.length === 0
-                ? question.answers.min
-                : answers[0]
+              answers.length === 0 ? question.answers.min : answers[0]
             }
-            onSelectAnswer = {onSelectAnswer}
+            onSelectAnswer={onSelectAnswer}
           />
         )}
         {enableSubmit && (
