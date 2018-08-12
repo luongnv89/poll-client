@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Switch, HashRouter } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+} from 'react-router-dom'
+
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -14,13 +18,13 @@ import ErrorBoundary from './components/ErrorBoudary';
 class App extends React.Component {
   render() {
     return (
-      <HashRouter>
-        <Switch>
+      <Router>
+        <div>
           <Route exact path="/" component={HomePage} />
           <Route path="/questions/:questionID" component={QuestionPage} />
           <Route path="/answers/questions/:questionID" component={AnswerPage} />
-        </Switch>
-      </HashRouter>
+        </div>
+      </Router>
     );
   }
 }
